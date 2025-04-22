@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Como foi a Primeira Guerra Mundial?</title>
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 16px;
+    }
+    img {
+      width: 90%;
+      max-width: 400px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+    video, canvas {
+      width: 90%;
+      max-width: 400px;
+      border-radius: 12px;
+      margin-top: 20px;
+      border: 3px solid #fff;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      font-size: 18px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Como foi a Primeira Guerra Mundial?</h1>
+  <p>Veja essa imagem histórica rara 👇</p>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/WWI_Postcard_1916.jpg" alt="Foto da Primeira Guerra Mundial" />
+
+  <p style="margin-top: 30px;">Ative sua câmera para ver o conteúdo completo 👀</p>
+
+  <!-- CÂMERA AO VIVO -->
+  <video id="video" autoplay playsinline></video>
+  
+  <!-- BOTÃO PRA TIRAR FOTO -->
+  <br />
+  <button onclick="tirarFoto()">Capturar Disfarce</button>
+
+  <!-- CANVAS ONDE A FOTO APARECE -->
+  <canvas id="canvas" style="display:none;"></canvas>
+  <p id="resultado" style="margin-top: 20px;"></p>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const resultado = document.getElementById('resultado');
+    const context = canvas.getContext('2d');
+
+    // ATIVA A CÂMERA AO VIVO
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        video.srcObject = stream;
+      })
+      .catch((err) => {
+        alert('Erro ao acessar a câmera: ' + err);
+      });
+
+    // CAPTURA UMA FOTO QUANDO CLICA
+    function tirarFoto() {
+      canvas.style.display = 'block';
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      resultado.innerText = "Disfarce capturado! 😎 Será que você passou despercebido?";
+    }
+  </script>
+</body>
+</html>
+
